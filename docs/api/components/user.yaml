@@ -1,0 +1,16 @@
+login:
+  request:
+    type: object
+    properties:
+      phoneNumber:
+        type: string
+        format: phoneNumber
+      password:
+        type: string
+        format: password
+  response:
+    type: object
+    properties:
+      token:
+        type: string
+        format: token

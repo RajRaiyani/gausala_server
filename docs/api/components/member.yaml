@@ -1,0 +1,71 @@
+findAll:
+  response:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the member
+        name:
+          type: string
+        birthDate:
+          type: date
+          format: date
+        phoneNumber:
+          type: string
+          format: phoneNumber
+        address:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+create:
+  request:
+    type: object
+    properties:
+      name:
+        type: string
+      birthDate:
+        type: date
+        format: date
+      phoneNumber:
+        type: string
+        format: phoneNumber
+      address:
+        type: string
+  response:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier for the member
+      name:
+        type: string
+      birthDate:
+        type: date
+        format: date
+      phoneNumber:
+        type: string
+        format: phoneNumber
+      address:
+        type: string
+      createdAt:
+        type: string
+        format: date-time
+
+update:
+  request:
+    type: object
+    properties:
+      name:
+        type: string
+      birthDate:
+        type: date
+        format: date
+      phoneNumber:
+        type: string
+        format: phoneNumber
+      address:
+        type: string

@@ -1,0 +1,63 @@
+findAll:
+  response:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the booking
+        name:
+          type: string
+        date:
+          type: date
+          format: date
+        phoneNumber:
+          type: string
+          format: phoneNumber
+        createdAt:
+          type: string
+          format: date-time
+
+create:
+  request:
+    type: object
+    properties:
+      name:
+        type: string
+      date:
+        type: date
+        format: date
+      phoneNumber:
+        type: string
+        format: phoneNumber
+  response:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier for the member
+      name:
+        type: string
+      date:
+        type: date
+        format: date
+      phoneNumber:
+        type: string
+        format: phoneNumber
+      createdAt:
+        type: string
+        format: date-time
+
+update:
+  request:
+    type: object
+    properties:
+      name:
+        type: string
+      date:
+        type: date
+        format: date
+      phoneNumber:
+        type: string
+        format: phoneNumber
