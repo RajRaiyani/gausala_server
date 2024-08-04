@@ -1,15 +1,13 @@
-exports.create = async (dbClient, data) => {
-  const { gausalaId, image, description } = data;
-
+exports.create = async (dbClient, gausalaId, url) => {
   const sqlQuery = `
       INSERT INTO "image"
-        ("gausalaId", "image", "description")
+        ("gausalaId", "url")
       VALUES
-        ($1, $2, $3)
+        ($1, $2)
       RETURNING *;
     `;
 
-  const values = [gausalaId, image, description];
+  const values = [gausalaId, url];
 
   const result = await dbClient.query(sqlQuery, values);
 
@@ -31,21 +29,34 @@ exports.findAll = async (dbClient, gausalaId) => {
   return result.rows;
 };
 
-exports.update = async (dbClient, gausalaId, id, timeStamp, data) => {
-  const { image, description } = data;
+exports.findById = async (dbClient, gausalaId, id) => {
+  const sqlQuery = `
+      SELECT *
+      FROM "image"
+      WHERE
+        "id" = $1 AND
+        "gausalaId" = $2;
+    `;
 
+  const values = [id, gausalaId];
+
+  const result = await dbClient.query(sqlQuery, values);
+
+  return result.rows[0];
+};
+
+exports.update = async (dbClient, gausalaId, id, url) => {
   const sqlQuery = `
       UPDATE "image"
       SET
-        "image" = $1,
-        "description" = $2,
-        "updatedAt" = $3
+        "url" = $1
       WHERE
-        "id" = $4 AND
-        "gausalaId" = $5;
+        "id" = $2 AND
+        "gausalaId" = $3
+      RETURNING *;
     `;
 
-  const values = [image, description, timeStamp, id, gausalaId];
+  const values = [url, id, gausalaId];
 
   const result = await dbClient.query(sqlQuery, values);
 

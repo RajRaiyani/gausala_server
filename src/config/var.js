@@ -14,6 +14,11 @@ const env = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
   },
+  aws: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION,
+  },
   consoleLogLevel: process.env.CONSOLE_LOG_LEVEL || 'info',
   fileLogLevel: process.env.FILE_LOG_LEVEL || 'block',
 };
@@ -31,6 +36,11 @@ const envSchema = Joi.object({
     user: Joi.string().required().min(3).max(255),
     password: Joi.string().allow(''),
     database: Joi.string().required().min(3).max(255),
+  }),
+  aws: Joi.object({
+    accessKeyId: Joi.string().required().min(3).max(255),
+    secretAccessKey: Joi.string().required().min(3).max(255),
+    region: Joi.string().required().min(3).max(255),
   }),
 
   consoleLogLevel: Joi.string().required().valid('false', 'error', 'warn', 'info', 'http', 'verbose', 'debug', 'silly'),
@@ -56,6 +66,12 @@ module.exports = {
     user: env.database.user,
     password: env.database.password,
     database: env.database.database,
+  },
+
+  aws: {
+    accessKeyId: env.aws.accessKeyId,
+    secretAccessKey: env.aws.secretAccessKey,
+    region: env.aws.region,
   },
 
   loggerOptions: {

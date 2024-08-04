@@ -1,15 +1,15 @@
 exports.create = async (dbClient, gausalaId, data) => {
-  const { name, phoneNumber, birthDate } = data;
+  const { name, phoneNumber, birthDate, address } = data;
 
   const sqlQuery = `
     INSERT INTO "member"
-      ("gausalaId", "name", "phoneNumber", "birthDate")
+      ("gausalaId", "name", "phoneNumber", "birthDate", "address")
     VALUES
-      ($1, $2, $3, $4)
+      ($1, $2, $3, $4, $5)
     RETURNING *;
   `;
 
-  const values = [gausalaId, name, phoneNumber, birthDate];
+  const values = [gausalaId, name, phoneNumber, birthDate, address];
 
   const result = await dbClient.query(sqlQuery, values);
 
@@ -23,6 +23,7 @@ exports.findAll = async (dbClient, gausalaId) => {
       "name" as "name",
       "phoneNumber" as "phoneNumber",
       "birthDate" as "birthDate",
+      "address" as "address",
       "createdAt" as "CreatedAt"
     FROM
       "member"
@@ -38,7 +39,7 @@ exports.findAll = async (dbClient, gausalaId) => {
 };
 
 exports.update = async (dbClient, gausalaId, id, data) => {
-  const { name, phoneNumber, birthDate } = data;
+  const { name, phoneNumber, birthDate, address } = data;
 
   const sqlQuery = `
     UPDATE
@@ -46,13 +47,14 @@ exports.update = async (dbClient, gausalaId, id, data) => {
     SET
       "name" = $1,
       "phoneNumber" = $2,
-      "birthDate" = $3
+      "birthDate" = $3,
+      "address" = $4
     WHERE
-      "gausalaId" = $4 AND
-      "id" = $5;
+      "gausalaId" = $5 AND
+      "id" = $6;
   `;
 
-  const values = [name, phoneNumber, birthDate, gausalaId, id];
+  const values = [name, phoneNumber, birthDate, address, gausalaId, id];
 
   const result = await dbClient.query(sqlQuery, values);
 
