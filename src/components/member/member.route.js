@@ -2,6 +2,8 @@ const express = require('express');
 const { validate } = require('../../utility/validationHelper');
 const MemberController = require('./member.controller');
 const MemberValidation = require('./member.validation');
+const isLoggedIn = require('../../middleware/isLoggedIn');
+const isValidApp = require('../../middleware/isValidApp');
 
 const router = express.Router();
 
@@ -41,8 +43,8 @@ const router = express.Router();
  *               $ref: 'components/member.yaml#/create/response'
  */
 router.route('/')
-  .get(MemberController.findAll)
-  .post(validate(MemberValidation.create), MemberController.create);
+  .get(isValidApp, MemberController.findAll)
+  .post(isLoggedIn, validate(MemberValidation.create), MemberController.create);
 
 /**
  * @swagger
@@ -82,7 +84,7 @@ router.route('/')
  *         description: OK - request succeeded but doesn't return anything
  */
 router.route('/:id')
-  .put(validate(MemberValidation.update), MemberController.update)
-  .delete(validate(MemberValidation.delete), MemberController.delete);
+  .put(isLoggedIn, validate(MemberValidation.update), MemberController.update)
+  .delete(isLoggedIn, validate(MemberValidation.delete), MemberController.delete);
 
 module.exports = router;

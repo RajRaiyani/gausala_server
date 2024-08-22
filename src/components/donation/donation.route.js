@@ -2,6 +2,8 @@ const express = require('express');
 const { validate } = require('../../utility/validationHelper');
 const DonationController = require('./donation.controller');
 const DonationValidation = require('./donation.validation');
+const isLoggedIn = require('../../middleware/isLoggedIn');
+const isValidApp = require('../../middleware/isValidApp');
 
 const router = express.Router();
 
@@ -42,8 +44,8 @@ const router = express.Router();
  */
 
 router.route('/')
-  .get(DonationController.findAll)
-  .post(validate(DonationValidation.create), DonationController.create);
+  .get(isValidApp, DonationController.findAll)
+  .post(isLoggedIn, validate(DonationValidation.create), DonationController.create);
 
 /**
  * @swagger
@@ -83,7 +85,7 @@ router.route('/')
  *         description: OK - request succeeded but doesn't return anything
  */
 router.route('/:id')
-  .put(validate(DonationValidation.update), DonationController.update)
-  .delete(validate(DonationValidation.delete), DonationController.delete);
+  .put(isLoggedIn, validate(DonationValidation.update), DonationController.update)
+  .delete(isLoggedIn, validate(DonationValidation.delete), DonationController.delete);
 
 module.exports = router;
