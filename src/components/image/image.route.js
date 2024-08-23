@@ -9,7 +9,7 @@ const isValidApp = require('../../middleware/isValidApp');
 const router = express.Router();
 
 router.route('/')
-  .get(isValidApp, isLoggedIn, ImageController.findAll)
+  .get(isValidApp, ImageController.findAll)
   .post(isLoggedIn, fileUpload.single('file'), ImageController.create);
 
 router.route('/:id')
