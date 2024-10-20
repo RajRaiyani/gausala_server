@@ -46,7 +46,8 @@ CREATE TABLE public.donation (
     amount integer DEFAULT 0,
     date timestamp without time zone,
     address character varying(500),
-    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "isPaid" boolean DEFAULT false NOT NULL
 );
 
 
@@ -257,4 +258,5 @@ ALTER TABLE ONLY public."user"
 
 INSERT INTO public.schema_migrations (version) VALUES
     ('20240723163245'),
-    ('20241016165128');
+    ('20241016165128'),
+    ('20241020130211');

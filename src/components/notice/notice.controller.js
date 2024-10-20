@@ -12,8 +12,9 @@ exports.create = async (req, res, next) => {
 
 // Read a notice
 exports.read = async (req, res, next) => {
+  const { date } = req.query;
   try {
-    const notice = await NoticeService.read();
+    const notice = await NoticeService.read(date);
     res.json(notice);
   } catch (err) {
     next(err);

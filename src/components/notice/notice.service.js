@@ -12,10 +12,10 @@ exports.create = async (data) => {
 };
 
 // Read a notice
-exports.read = async () => {
+exports.read = async (date) => {
   const dbClient = await Database.pool.connect();
   try {
-    return await NoticeDal.read(dbClient);
+    return await NoticeDal.read(dbClient, date);
   } finally {
     dbClient.release();
   }

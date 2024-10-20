@@ -23,7 +23,8 @@ exports.findAll = async (dbClient, gausalaId) => {
       "amount" as "amount",
       "date" as "date",
       "address" as "address",
-      "createdAt" as "CreatedAt"
+      "createdAt" as "CreatedAt",
+      "isPaid" as "isPaid"
     FROM
       "donation"
     WHERE
@@ -36,7 +37,7 @@ exports.findAll = async (dbClient, gausalaId) => {
 };
 
 exports.update = async (dbClient, gausalaId, id, data) => {
-  const { name, phoneNumber, amount, date, address } = data;
+  const { name, phoneNumber, amount, date, address, isPaid } = data;
 
   const sqlQuery = `
     UPDATE
@@ -46,13 +47,23 @@ exports.update = async (dbClient, gausalaId, id, data) => {
       "phoneNumber" = $2,
       "amount" = $3,
       "date" = $4,
-      "address" = $5
+      "address" = $5,
+      "hasPaid" = $8
     WHERE
       "gausalaId" = $6 AND
       "id" = $7;
   `;
 
-  const values = [name, phoneNumber, amount, date, address, gausalaId, id];
+  const values = [
+    name,
+    phoneNumber,
+    amount,
+    date,
+    address,
+    gausalaId,
+    id,
+    isPaid,
+  ];
   const result = await dbClient.query(sqlQuery, values);
   return result.rows[0];
 };

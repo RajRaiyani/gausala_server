@@ -10,12 +10,24 @@ exports.create = async (dbClient, data) => {
   return rows[0];
 };
 
-exports.read = async (dbClient) => {
+exports.read = async (dbClient, date) => {
+  let where = '';
+  let values = [];
+  if (date) {
+    const startDate = new Date(date);
+    startDate.setHours(0, 0, 0, 0);
+    const endDate = new Date(date);
+    endDate.setHours(23, 59, 59, 999);
+    where = 'WHERE "date" >= $1 AND "date" <= $2';
+    values = [startDate, endDate];
+  }
+
   const query = `
-    SELECT * FROM "notice";
+    SELECT * FROM "notice"
+    ${where};
   `;
-  const { rows } = await dbClient.query(query);
-  return rows[0];
+  const { rows } = await dbClient.query(query, values);
+  return rows;
 };
 
 exports.update = async (dbClient, id, data) => {

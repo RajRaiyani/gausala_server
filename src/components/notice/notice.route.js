@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.route('/')
   .post(isLoggedIn, validate(NoticeValidation.create), NoticeController.create)
-  .get(isLoggedIn, NoticeController.read);
+  .get(isLoggedIn, validate(NoticeValidation.list), NoticeController.read);
 
 router.route('/:id')
   .put(isLoggedIn, validate(NoticeValidation.update), NoticeController.update)

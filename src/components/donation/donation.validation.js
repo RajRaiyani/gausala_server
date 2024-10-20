@@ -1,7 +1,6 @@
 const Joi = require('joi');
 
 module.exports = {
-
   create: {
     body: Joi.object().keys({
       name: Joi.string().required(),
@@ -19,6 +18,7 @@ module.exports = {
       phoneNumber: Joi.string().required().min(10).max(10),
       address: Joi.string().required().allow(''),
       date: Joi.date().required(),
+      hasPaid: Joi.boolean().required(),
     }),
   },
 
@@ -27,5 +27,4 @@ module.exports = {
       id: Joi.string().required(),
     }),
   },
-
 };

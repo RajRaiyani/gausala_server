@@ -1,6 +1,12 @@
 const Joi = require('joi');
 
 module.exports = {
+
+  list: {
+    query: Joi.object().keys({
+      date: Joi.date(),
+    }),
+  },
   create: {
     body: Joi.object().keys({
       title: Joi.string().required(),
