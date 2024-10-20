@@ -1,15 +1,15 @@
 exports.create = async (dbClient, gausalaId, data) => {
-  const { name, phoneNumber, amount, date, address } = data;
+  const { name, phoneNumber, amount, date, address, isPaid } = data;
 
   const sqlQuery = `
     INSERT INTO "donation"
-      ("gausalaId", "name", "phoneNumber", "amount", "date", "address")
+      ("gausalaId", "name", "phoneNumber", "amount", "date", "address", "isPaid")
     VALUES
-      ($1, $2, $3, $4, $5, $6)
+      ($1, $2, $3, $4, $5, $6, $7)
     RETURNING *;
   `;
 
-  const values = [gausalaId, name, phoneNumber, amount, date, address];
+  const values = [gausalaId, name, phoneNumber, amount, date, address, isPaid];
   const result = await dbClient.query(sqlQuery, values);
   return result.rows[0];
 };

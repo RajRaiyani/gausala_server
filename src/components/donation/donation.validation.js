@@ -8,6 +8,7 @@ module.exports = {
       phoneNumber: Joi.string().required().min(10).max(10),
       address: Joi.string().required().allow(''),
       date: Joi.date().required(),
+      isPaid: Joi.boolean().default(false),
     }),
   },
 
@@ -18,7 +19,7 @@ module.exports = {
       phoneNumber: Joi.string().required().min(10).max(10),
       address: Joi.string().required().allow(''),
       date: Joi.date().required(),
-      hasPaid: Joi.boolean().required(),
+      isPaid: Joi.boolean().required(),
     }),
   },
 
