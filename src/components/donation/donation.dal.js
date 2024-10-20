@@ -48,7 +48,7 @@ exports.update = async (dbClient, gausalaId, id, data) => {
       "amount" = $3,
       "date" = $4,
       "address" = $5,
-      "hasPaid" = $8
+      "isPaid" = $8
     WHERE
       "gausalaId" = $6 AND
       "id" = $7;
